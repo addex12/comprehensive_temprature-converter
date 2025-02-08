@@ -1,29 +1,38 @@
-# cli.py
-# Author: Adugna Gizaw
-# Email: gizawadugna@gmail.com
-# Phone: +251925582067
-# Date: October 29, 2023  (Update with current date)
-# Description: This file implements a command-line interface for temperature conversions.
-
 import argparse
+from rich import print
+from rich.console import Console
+from rich.table import Table
+from rich.panel import Panel
+from rich.prompt import Prompt
 from converter import celsius_to_fahrenheit, fahrenheit_to_celsius, celsius_to_kelvin, kelvin_to_celsius, fahrenheit_to_kelvin, kelvin_to_fahrenheit
 from logger import log_conversion
 
+console = Console()
+
+def get_temperature_input():
+    while True:
+        try:
+            temperature = float(Prompt.ask("[bold blue]Enter the temperature value[/bold blue]"))
+            return temperature
+        except ValueError:
+            console.print("[bold red]Invalid input. Please enter a number.[/bold red]")
+
+def get_unit_input(prompt_message):
+    while True:
+        unit = Prompt.ask(prompt_message).lower()
+        if unit in ["celsius", "fahrenheit", "kelvin"]:
+            return unit.capitalize()
+        else:
+            console.print("[bold red]Invalid unit. Please enter Celsius, Fahrenheit, or Kelvin.[/bold red]")
+
 def main():
-    parser = argparse.ArgumentParser(description="Convert temperatures between Celsius, Fahrenheit, and Kelvin.")
-    parser.add_argument("temperature", type=float, help="The temperature value.")
-    parser.add_argument("input_unit", choices=["Celsius", "Fahrenheit", "Kelvin"], help="The input temperature unit.")
-    parser.add_argument("output_unit", choices=["Celsius", "Fahrenheit", "Kelvin"], help="The output temperature unit.")
-
-    args = parser.parse_args()
-
-    temperature = args.temperature
-    input_unit = args.input_unit
-    output_unit = args.output_unit
+    temperature = get_temperature_input()
+    input_unit = get_unit_input("[bold green]What is the input unit?[/bold green] (Celsius, Fahrenheit, Kelvin)")
+    output_unit = get_unit_input("[bold yellow]What unit do you want to convert to?[/bold yellow] (Celsius, Fahrenheit, Kelvin)")
 
     try:
         if input_unit == output_unit:
-            converted_temperature = temperature  # No conversion needed
+            converted_temperature = temperature  # Define converted_temperature here
         elif input_unit == "Celsius":
             if output_unit == "Fahrenheit":
                 converted_temperature = celsius_to_fahrenheit(temperature)
@@ -42,14 +51,20 @@ def main():
         else:
             raise ValueError("Invalid conversion.")
 
-        print(f"{temperature} {input_unit} is {converted_temperature} {output_unit}")
+        panel_title = f"[bold blue]Temperature Conversion Result[/bold blue]"
+        table = Table(title=panel_title, style="cyan")
+        table.add_column("Input", style="magenta")
+        table.add_column("Output", style="green")
+        table.add_row(f"{temperature} {input_unit}", f"{converted_temperature} {output_unit}")
+
+        console.print(Panel(table, border_style="yellow"))
+
+        log_conversion(temperature, input_unit, converted_temperature, output_unit)
 
     except ValueError as e:
-        print(f"Error: {e}")
-    except Exception as e: # Catch any other exceptions
-        print(f"An unexpected error occurred: {e}")
-
-
+        console.print(f"[bold red]Error:[/bold red] {e}")
+    except Exception as e:
+        console.print(f"[bold red]An unexpected error occurred:[/bold red] {e}")
 
 if __name__ == "__main__":
     main()
