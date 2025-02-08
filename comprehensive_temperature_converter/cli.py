@@ -1,4 +1,6 @@
 import argparse
+import tkinter as tk
+from tkinter import ttk, messagebox
 from rich import print
 from rich.console import Console
 from rich.table import Table
@@ -25,6 +27,14 @@ def get_unit_input(prompt_message):
         else:
             console.print("[bold red]Invalid unit. Please enter Celsius, Fahrenheit, or Kelvin.[/bold red]")
 
+def show_popup(input_temp, input_unit, output_temp, output_unit, temp_input, unit_input, unit_output):
+    popup = tk.Tk()
+    popup.withdraw()
+
+    message = f"Temperature Input: {temp_input}\nUnit Input: {unit_input}\nUnit Output: {unit_output}\n\nResult: {input_temp} {input_unit} = {output_temp} {output_unit}"  # More detailed message
+    messagebox.showinfo("Conversion Result", message)
+
+
 def main():
     temperature = get_temperature_input()
     input_unit = get_unit_input("[bold green]What is the input unit?[/bold green] (Celsius, Fahrenheit, Kelvin)")
@@ -32,7 +42,7 @@ def main():
 
     try:
         if input_unit == output_unit:
-            converted_temperature = temperature  # Define converted_temperature here
+            converted_temperature = temperature
         elif input_unit == "Celsius":
             if output_unit == "Fahrenheit":
                 converted_temperature = celsius_to_fahrenheit(temperature)
@@ -51,12 +61,15 @@ def main():
         else:
             raise ValueError("Invalid conversion.")
 
+        # Show popup with all inputs
+        show_popup(temperature, input_unit, converted_temperature, output_unit, temperature, input_unit, output_unit)  # Pass all input values
+
+        # Rich output (still keep it for console logging/feedback)
         panel_title = f"[bold blue]Temperature Conversion Result[/bold blue]"
         table = Table(title=panel_title, style="cyan")
         table.add_column("Input", style="magenta")
         table.add_column("Output", style="green")
         table.add_row(f"{temperature} {input_unit}", f"{converted_temperature} {output_unit}")
-
         console.print(Panel(table, border_style="yellow"))
 
         log_conversion(temperature, input_unit, converted_temperature, output_unit)
