@@ -14,7 +14,7 @@ This section guides you through setting up the Temperature Converter package.
    Open your terminal or command prompt and navigate to the directory where you want to store the project. Then, clone the repository using Git:
 
    ```bash
-   git clone [https://github.com/addex12/comprehensive_temperature_converter.git](https://github.com/addex12/comprehensive_temperature_converter.git)
+   git clone [https://github.com/addex12/comprehensive_temperature_converter.git](https://github.com/addex12/temperature_converter.git)
    ```
 
    This command will create a directory named `comprehensive_temperature_converter` containing the project files.
@@ -144,7 +144,7 @@ The unit tests for the conversion functions are located in the `tests` directory
 
 1. **Navigate to the project's root directory:**
 
-   Make sure you are at the top level of the `temperature_converter` directory in your terminal.
+   Make sure you are at the top level of the `comprehensive_temperature_converter` directory in your terminal.
 
 2. **Run the tests:**
 

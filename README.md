@@ -144,7 +144,7 @@ The unit tests for the conversion functions are located in the `tests` directory
 
 1. **Navigate to the project's root directory:**
 
-   Make sure you are at the top level of the `temperature_converter` directory in your terminal.
+   Make sure you are at the top level of the `comprehensive_temperature_converter` directory in your terminal.
 
 2. **Run the tests:**
 
