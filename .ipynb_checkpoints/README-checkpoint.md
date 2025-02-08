@@ -14,15 +14,15 @@ This section guides you through setting up the Temperature Converter package.
    Open your terminal or command prompt and navigate to the directory where you want to store the project. Then, clone the repository using Git:
 
    ```bash
-   git clone [https://github.com/your_username/temperature_converter.git](https://github.com/your_username/temperature_converter.git)  # Replace with your GitHub username
+   git clone [https://github.com/addex12/comprehensive_temperature_converter.git](https://github.com/addex12/temperature_converter.git)
    ```
 
-   This command will create a directory named `temperature_converter` containing the project files.
+   This command will create a directory named `comprehensive_temperature_converter` containing the project files.
 
 2. **Navigate to the project directory:**
 
    ```bash
-   cd temperature_converter
+   cd comprehensive_temperature_converter
    ```
 
 3. **(Optional but Highly Recommended) Create and activate a virtual environment:**
@@ -55,8 +55,6 @@ This section guides you through setting up the Temperature Converter package.
    ```bash
    pip install -r requirements.txt
    ```
-
-   Since `requirements.txt` is empty for this project, this step isn't strictly necessary right now.  However, it prepares you for adding dependencies later.
 
 ## Usage
 
